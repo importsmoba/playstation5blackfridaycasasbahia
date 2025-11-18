@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Cadastro - Casas Bahia</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0033C6, #1E90FF);
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+
+    .container {
+      background: #fff;
+      color: #333;
+      border-radius: 12px;
+      padding: 30px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #0033C6;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      background: #0033C6;
+      color: #fff;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #1E90FF;
+    }
+
+    .google-btn {
+      background: #DB4437;
+    }
+
+    .google-btn:hover {
+      background: #E74B3C;
+    }
+
+    .form {
+      display: none;
+      margin-top: 15px;
+      text-align: left;
+    }
+
+    .form input {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .voltar {
+      margin-top: 15px;
+      background: #555;
+    }
+
+    .voltar:hover {
+      background: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Bem-vindo<br>à</h1>
+    <img src="logo.svg" alt="Logo Casas Bahia" class="logo">
+
+
+    <div id="menu">
+      <button class="btn" id="btnEntrar">Entrar</button>
+      <button class="btn" id="btnCadastrar">Cadastre-se</button>
+    </div>
+
+    <!-- Formulário de Login -->
+    <div id="loginForm" class="form">
+      <h2>Entrar</h2>
+      <input type="email" id="loginEmail" placeholder="E-mail" required>
+      <input type="password" id="loginSenha" placeholder="Senha" required>
+      <button class="btn" id="entrarBtn">Entrar</button>
+      <button class="btn google-btn" id="googleLogin">Entrar com Google</button>
+      <button class="btn voltar" id="voltarLogin">Voltar</button>
+    </div>
+
+    <!-- Formulário de Cadastro -->
+    <div id="cadastroForm" class="form">
+      <h2>Cadastre-se</h2>
+      <input type="text" id="cadastroNome" placeholder="Nome completo" required>
+      <input type="email" id="cadastroEmail" placeholder="E-mail" required>
+      <label for="telefone">Telefone</label>
+<input 
+  type="tel" 
+  id="telefone" 
+  name="telefone" 
+  placeholder="(11) 98765-4321" 
+  maxlength="15"
+  required
+  oninput="formatarTelefone(this)"
+  pattern="^\(\d{2}\)\s\d{4,5}-\d{4}$"
+  title="Digite o telefone no formato (DDD) 99999-9999">
+<p id="erro-telefone" style="color:red; display:none;">Formato inválido. Use (11) 98765-4321.</p><input type="password" id="cadastroSenha" placeholder="Senha" required>
+      <input type="password" id="cadastroConfirma" placeholder="Confirmar senha" required>
+      <button class="btn" id="cadastrarBtn">Cadastrar</button>
+      <button class="btn google-btn" id="googleCadastro">Cadastrar com Google</button>
+      <button class="btn voltar" id="voltarCadastro">Voltar</button>
+    </div>
+  </div>
+
+  <script>
+    const menu = document.getElementById('menu');
+    const loginForm = document.getElementById('loginForm');
+    const cadastroForm = document.getElementById('cadastroForm');
+
+    // Botões principais
+    document.getElementById('btnEntrar').onclick = () => {
+      menu.style.display = 'none';
+      loginForm.style.display = 'block';
+    };
+
+    document.getElementById('btnCadastrar').onclick = () => {
+      menu.style.display = 'none';
+      cadastroForm.style.display = 'block';
+    };
+
+    // Botões de voltar
+    document.getElementById('voltarLogin').onclick = () => {
+      loginForm.style.display = 'none';
+      menu.style.display = 'block';
+    };
+
+    document.getElementById('voltarCadastro').onclick = () => {
+      cadastroForm.style.display = 'none';
+      menu.style.display = 'block';
+    };
+
+    // Simulação de login
+    document.getElementById('entrarBtn').onclick = () => {
+      const email = document.getElementById('loginEmail').value;
+      const senha = document.getElementById('loginSenha').value;
+
+      if (email && senha) {
+        alert("✅ Login simulado com sucesso!");
+        setTimeout(() => window.location.href = "index.html", 2000);
+      } else {
+        alert("⚠️ Preencha todos os campos.");
+      }
+    };
+
+    // Simulação de login com Google
+    document.getElementById('googleLogin').onclick = () => {
+      alert("✅ Login efetuado com sucesso!");
+      setTimeout(() => window.location.href = "index.html", 2000);
+    };
+
+    // Simulação de cadastro
+    document.getElementById('cadastrarBtn').onclick = () => {
+      const nome = document.getElementById('cadastroNome').value;
+      const email = document.getElementById('cadastroEmail').value;
+      const senha = document.getElementById('cadastroSenha').value;
+      const confirma = document.getElementById('cadastroConfirma').value;
+
+      if (!nome || !email || !senha || !confirma) {
+        alert("⚠️ Preencha todos os campos.");
+        return;
+      }
+
+      if (senha !== confirma) {
+        alert("⚠️ As senhas não coincidem.");
+        return;
+      }
+
+      alert("✅ Cadastro com sucesso!");
+      setTimeout(() => window.location.href = "index.html", 2000);
+    };
+
+    // Simulação de cadastro com Google
+    document.getElementById('googleCadastro').onclick = () => {
+      alert("✅ Cadastro efetuado com sucesso!");
+      setTimeout(() => window.location.href = "index.html", 2000);
+    };
+  </script>
+
+</body>
+</html>
